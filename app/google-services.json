@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "526716595281",
+    "firebase_url": "https://routefirebase.firebaseio.com",
+    "project_id": "routefirebase",
+    "storage_bucket": "routefirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526716595281:android:d1d1336d69bb1349",
+        "android_client_info": {
+          "package_name": "com.example.route_llatasi_rivas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526716595281-ubj1854ucjt6a6601tdmp77n8pnn85r4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.route_llatasi_rivas",
+            "certificate_hash": "ae9d21c4d0053719b45474896172f1201e5a4a33"
+          }
+        },
+        {
+          "client_id": "526716595281-5u9kbn7j37o61el2h09n8t70v2626uqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACY8q7xkyMpak5ux81U08JbBo0DZBEHIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526716595281-5u9kbn7j37o61el2h09n8t70v2626uqt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
