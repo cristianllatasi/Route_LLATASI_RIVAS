@@ -16,15 +16,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class registroactivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText TextEmail;
     private EditText TextPassword;
+    private EditText TextNombre;
     private Button btnregistrar;
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +39,10 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.registro);
 
         firebaseAuth=FirebaseAuth.getInstance();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
         TextEmail=(EditText)findViewById(R.id.txtemail);
         TextPassword=(EditText)findViewById(R.id.txtcontrasena);
+        TextNombre=(EditText)findViewById(R.id.txtnombre);
         btnregistrar=(Button)findViewById(R.id.btnregistrar);
         progressDialog=new ProgressDialog(this);
 
@@ -42,8 +51,9 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
 
     }
     private void registrarUsuario(){
-        String email=TextEmail.getText().toString().trim();
-        String password=TextPassword.getText().toString().trim();
+        final String email=TextEmail.getText().toString().trim();
+        final String password=TextPassword.getText().toString().trim();
+        final String nombre=TextNombre.getText().toString();
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getApplicationContext(),"Se debe ingresar un email",Toast.LENGTH_SHORT).show();
@@ -51,6 +61,14 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
         }
         if(TextUtils.isEmpty(password)){
             Toast.makeText(getApplicationContext(),"falta ingresar la contraseña",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(password.length()<6){
+            Toast.makeText(getApplicationContext(),"El password debe tener más de 6 caracteres",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(nombre)){
+            Toast.makeText(getApplicationContext(),"Ingrese su nombre completo",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -61,6 +79,15 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
+                    Map<String,Object> map=new HashMap<>();
+                    map.put("name",nombre);
+                    map.put("email",email);
+                    map.put("password",password);
+
+                    String id=firebaseAuth.getCurrentUser().getUid();
+
+                    mDatabase.child("Users").child(id).setValue(map);
                     Toast.makeText(getApplicationContext(),"Se ha registrado el email",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getApplicationContext(),"No se pudo registrar el usuario",Toast.LENGTH_SHORT).show();
