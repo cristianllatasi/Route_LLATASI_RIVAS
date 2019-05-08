@@ -112,6 +112,6 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view){
         registrarUsuario();
 
-        }
     }
+}
 
