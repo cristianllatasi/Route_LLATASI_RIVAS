@@ -4,12 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +37,7 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
+        setupActionBar();
 
         firebaseAuth=FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -49,6 +50,15 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
         btnregistrar.setOnClickListener(this);
 
 
+    }
+
+    private void setupActionBar(){
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar !=null){
+
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("Crear cuenta");
+        }
     }
     private void registrarUsuario(){
         final String email=TextEmail.getText().toString().trim();
@@ -89,6 +99,7 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
 
                     mDatabase.child("Users").child(id).setValue(map);
                     Toast.makeText(getApplicationContext(),"Se ha registrado el email",Toast.LENGTH_SHORT).show();
+
                 }else{
                     Toast.makeText(getApplicationContext(),"No se pudo registrar el usuario",Toast.LENGTH_SHORT).show();
                 }
@@ -100,5 +111,7 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view){
         registrarUsuario();
+
+        }
     }
-}
+
