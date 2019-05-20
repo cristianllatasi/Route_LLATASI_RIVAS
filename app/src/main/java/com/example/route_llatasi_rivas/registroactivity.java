@@ -1,7 +1,6 @@
 package com.example.route_llatasi_rivas;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
