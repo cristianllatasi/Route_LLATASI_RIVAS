@@ -1,6 +1,7 @@
 package com.example.route_llatasi_rivas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -98,6 +99,9 @@ public class registroactivity extends AppCompatActivity implements View.OnClickL
 
                     mDatabase.child("Users").child(id).setValue(map);
                     Toast.makeText(getApplicationContext(),"Se ha registrado el email",Toast.LENGTH_SHORT).show();
+
+                    Intent intencion = new Intent(getApplication(), MainActivity.class);
+                    startActivity(intencion);
 
                 }else{
                     Toast.makeText(getApplicationContext(),"No se pudo registrar el usuario",Toast.LENGTH_SHORT).show();
