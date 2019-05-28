@@ -9,6 +9,17 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/myRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="547dp"
+        android:layout_above="@+id/CerrarSesion"
+        android:layout_marginBottom="4dp"></android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/CerrarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:text="Button"
+        android:gravity="bottom"/>
 
 </RelativeLayout>

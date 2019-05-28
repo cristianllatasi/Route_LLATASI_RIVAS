@@ -1,11 +1,18 @@
 package com.example.route_llatasi_rivas;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +52,7 @@ public class Principal extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference().child("Lineas");
 
 
-
+        lineas = new ArrayList<Linea>();
 
 
 
@@ -54,7 +61,7 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
             //    lineas.removeAll(lineas);
-                lineas = new ArrayList<Linea>();
+
              //   for (DataSnapshot snapshot:
                 for( DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
                 {
@@ -68,6 +75,7 @@ public class Principal extends AppCompatActivity {
 
                     adapter = new Adapter(Principal.this,lineas);
                       recyclerView.setAdapter(adapter);
+
               //  adapter = new Adapter(Principal.this,lineas);
              //
             }
@@ -79,7 +87,18 @@ public class Principal extends AppCompatActivity {
             }
         });
 
+        Button cerrarsesion=(Button) findViewById(R.id.CerrarSesion);
+        cerrarsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
+
+
+
 }
