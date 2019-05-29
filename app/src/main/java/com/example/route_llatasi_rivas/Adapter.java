@@ -71,8 +71,8 @@ public class Adapter extends RecyclerView.Adapter <Adapter.LineasViewHolder>{
 
         }
         public void openActivity(){
-            Intent intent = new Intent(context.getApplicationContext(), MostrarRutas.class);
-            intent.putExtra("variable_ruta", ruta.toString());
+            Intent intent = new Intent(context.getApplicationContext(), MapsActivity.class);
+            intent.putExtra("variable_ruta", ruta);
 
             context.startActivity(intent);
         }
