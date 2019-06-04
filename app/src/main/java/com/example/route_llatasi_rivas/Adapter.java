@@ -9,16 +9,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Linea;
 
 public class Adapter extends RecyclerView.Adapter <Adapter.LineasViewHolder>{
 
   Context context;
-  ArrayList<Linea> lineas;
+  List<Linea> lineas;
   String ruta="";
 
-  public Adapter(Context c , ArrayList<Linea> p){
+  public Adapter(Context c , List<Linea> p){
 
       context= c;
       lineas=p;
@@ -28,7 +29,9 @@ public class Adapter extends RecyclerView.Adapter <Adapter.LineasViewHolder>{
 
     @Override
     public LineasViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-      return new LineasViewHolder(LayoutInflater.from(context).inflate(R.layout.row_recycler, parent, false));
+      View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recycler,parent,false);
+      LineasViewHolder holder=new LineasViewHolder(v);
+      return holder;
 
     }
 

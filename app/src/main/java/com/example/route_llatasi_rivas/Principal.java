@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,8 +33,9 @@ public class Principal extends AppCompatActivity {
 
     DatabaseReference reference;
     RecyclerView recyclerView;
-    ArrayList<Linea> lineas;
+    List<Linea> lineas;
     Adapter adapter;
+
 
 
 
@@ -48,18 +52,24 @@ public class Principal extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        lineas = new ArrayList<Linea>();
+
+
+
+
 
         reference = FirebaseDatabase.getInstance().getReference().child("Lineas");
 
 
-        lineas = new ArrayList<Linea>();
-
+        adapter=new Adapter(Principal.this,lineas);
+        recyclerView.setAdapter(adapter);
 
 
         reference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
+                lineas.removeAll(lineas);
             //    lineas.removeAll(lineas);
 
              //   for (DataSnapshot snapshot:
@@ -72,9 +82,10 @@ public class Principal extends AppCompatActivity {
 
                 }
 
+                adapter.notifyDataSetChanged();
 
-                    adapter = new Adapter(Principal.this,lineas);
-                      recyclerView.setAdapter(adapter);
+
+
 
               //  adapter = new Adapter(Principal.this,lineas);
              //
@@ -86,6 +97,8 @@ public class Principal extends AppCompatActivity {
                 Toast.makeText(Principal.this, "Se produjo un error", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
 

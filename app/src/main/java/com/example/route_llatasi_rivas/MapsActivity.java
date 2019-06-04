@@ -18,31 +18,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    String[]ruta;
-    Double[]LtdLng=new Double[2];
-    int MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION=0;
+    String[] ruta;
+    Double[] LtdLng = new Double[2];
+    int MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 0;
+    private int MY_PERMISSIONS_REQUEST_READ_CONTACTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        String []ruta=getIntent().getStringExtra("variable_ruta").split(",");
-        LtdLng[0]=Double.parseDouble(ruta[0]);
-        LtdLng[1]=Double.parseDouble(ruta[1]);
+        String[] ruta = getIntent().getStringExtra("variable_ruta").split(",");
+        LtdLng[0] = Double.parseDouble(ruta[0]);
+        LtdLng[1] = Double.parseDouble(ruta[1]);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
-
-
-
-
-
-
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 
     }
@@ -66,5 +60,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(lugar).title("Marker"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lugar));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MapsActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
     }
 }
