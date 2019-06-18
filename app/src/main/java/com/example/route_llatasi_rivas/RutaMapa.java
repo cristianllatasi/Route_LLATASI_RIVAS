@@ -55,7 +55,7 @@ public class RutaMapa extends AsyncTask<Void,Integer,Boolean> {
             url.append("&destination=");
             url.append(editHasta.replace(' ','+'));
             url.append("&key=");
-            url.append("AIzaSyCz82JFqzuDUx2LFZQHZJzgf07K4IV1RmM");
+            url.append("YOUR-API-KEY");
 
             final InputStream stream = new URL(url.toString()).openStream();
 
