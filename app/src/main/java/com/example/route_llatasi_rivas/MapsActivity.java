@@ -1,7 +1,9 @@
 package com.example.route_llatasi_rivas;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
+import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,8 +20,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    String[] ruta;
-    Double[] LtdLng = new Double[2];
+    String ruta="";
+    String desde;
+    String hasta;
+    //Double[] LtdLng = new Double[2];
+    ProgressDialog progressDialog;
     int MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 0;
     private int MY_PERMISSIONS_REQUEST_READ_CONTACTS;
 
@@ -28,11 +33,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        String[] ruta = getIntent().getStringExtra("variable_ruta").split(",");
-        LtdLng[0] = Double.parseDouble(ruta[0]);
-        LtdLng[1] = Double.parseDouble(ruta[1]);
+        ruta = getIntent().getStringExtra("variable_ruta").toString();
+
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        progressDialog = ProgressDialog.show(this, "Cargando",
+                "Espere...", true);
+
+        new CountDownTimer(1500, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                progressDialog.dismiss();
+            }
+        }.start();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -56,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng lugar = new LatLng(LtdLng[0], LtdLng[1]);
+        LatLng lugar = new LatLng(-18.0038755, -70.225904);
         mMap.addMarker(new MarkerOptions().position(lugar).title("Marker"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lugar));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
@@ -68,5 +86,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
+
+        String[] puntos=ruta.split("/");
+        for(int i=0;i<puntos.length;i++){
+            if(i==puntos.length-1){
+                desde=puntos[i].toString();
+                hasta=puntos[0].toString();
+            }else{
+                desde=puntos[i].toString();
+                hasta=puntos[i+1].toString();
+            }
+            new RutaMapa(MapsActivity.this,mMap,desde,hasta).execute();
+        }
     }
 }
