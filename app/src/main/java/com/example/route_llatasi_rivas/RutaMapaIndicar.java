@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class RutaMapa extends AsyncTask<Void,Integer,Boolean> {
+public class RutaMapaIndicar extends AsyncTask<Void,Integer,Boolean> {
     private static final String TOAST_MSG = "Calculando ...";
     private static final String TOAST_MSG_ERR = "No es posible Graficar esa ruta por el momento";
 
@@ -34,7 +34,7 @@ public class RutaMapa extends AsyncTask<Void,Integer,Boolean> {
     private String editHasta;
     private final ArrayList<LatLng> lstLatLng = new ArrayList<LatLng>();
 
-    public RutaMapa(Context context, GoogleMap gMap, String editDesde, String editHasta) {
+    public RutaMapaIndicar(Context context, GoogleMap gMap, String editDesde, String editHasta) {
         this.context = context;
         this.gMap = gMap;
         this.editDesde = editDesde;
@@ -131,7 +131,7 @@ public class RutaMapa extends AsyncTask<Void,Integer,Boolean> {
             Toast.makeText(context, TOAST_MSG_ERR, Toast.LENGTH_LONG).show();
         }else{
             final PolylineOptions polylines = new PolylineOptions();
-            polylines.color(Color.BLUE);
+            polylines.color(Color.RED);
 
             for(final LatLng latLng : lstLatLng){
                 polylines.add(latLng);
@@ -153,3 +153,4 @@ public class RutaMapa extends AsyncTask<Void,Integer,Boolean> {
     }
 
 }
+

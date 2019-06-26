@@ -37,14 +37,16 @@ public class Principal extends AppCompatActivity {
     Adapter adapter;
 
 
-
-
+    Button btnbuscar;
+    public static String ruta="";
+    public static String nombre="";
+    public static String horario="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
 
-
+        btnbuscar=(Button)findViewById(R.id.btnbuscartura) ;
 
 
         //Recycler View
@@ -69,6 +71,7 @@ public class Principal extends AppCompatActivity {
 
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
+                ruta="";
                 lineas.removeAll(lineas);
             //    lineas.removeAll(lineas);
 
@@ -79,6 +82,18 @@ public class Principal extends AppCompatActivity {
                     Linea p = dataSnapshot1.getValue(Linea.class);
                        // Linea linea = snapshot.getValue(Linea.class);
                         lineas.add(p);
+
+                }
+                for(int i=0;i<lineas.size();i++){
+                    if(i==lineas.size()-1){
+                        nombre=nombre+lineas.get(i).getNombre().toString();
+                        ruta=ruta+lineas.get(i).getRuta().toString();
+                        horario=horario+lineas.get(i).getHorario().toString();
+                    }else{
+                        nombre=nombre+lineas.get(i).getNombre().toString()+"/";
+                        ruta=ruta+lineas.get(i).getRuta().toString()+"¡";
+                        horario=horario+lineas.get(i).getHorario().toString()+"/";
+                    }
 
                 }
 
@@ -95,6 +110,14 @@ public class Principal extends AppCompatActivity {
             public void onCancelled( DatabaseError databaseError) {
 
                 Toast.makeText(Principal.this, "Se produjo un error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnbuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),BuscarRuta.class);
+                startActivity(intent);
             }
         });
 
