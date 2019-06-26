@@ -41,7 +41,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         progressDialog = ProgressDialog.show(this, "Cargando",
                 "Espere...", true);
 
-        new CountDownTimer(1500, 1000) {
+        new CountDownTimer(12000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 

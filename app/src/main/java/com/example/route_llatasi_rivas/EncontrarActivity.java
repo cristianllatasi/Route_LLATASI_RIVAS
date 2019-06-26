@@ -39,7 +39,7 @@ public class EncontrarActivity extends AppCompatActivity implements OnMapReadyCa
 
 
         textView=(TextView)findViewById(R.id.txtcombi);
-        //txthora=(TextView)findViewById(R.id.txthorario);
+        txthora=(TextView)findViewById(R.id.txthorario);
 
         desde = getIntent().getStringExtra("desde").toString();
         String[]desdeltdlng=desde.split(",");
@@ -119,8 +119,8 @@ public class EncontrarActivity extends AppCompatActivity implements OnMapReadyCa
 
         String[]nombres=Principal.nombre.split("/");
         textView.setText(nombres[combi]);
-        //String[]horario=Principal.horario.split("/");
-        //txthora.setText(horario[combi]);
+        String[]horario=Principal.horario.split("/");
+        txthora.setText(horario[combi]);
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -135,9 +135,8 @@ public class EncontrarActivity extends AppCompatActivity implements OnMapReadyCa
 
         // Add a marker in Sydney and move the camera
         LatLng lugar = new LatLng(-18.0038755, -70.225904);
-        mapa.addMarker(new MarkerOptions().position(lugar).title("Marker"));
         mapa.moveCamera(CameraUpdateFactory.newLatLng(lugar));
-        mapa.moveCamera(CameraUpdateFactory.zoomTo(17));
+        mapa.moveCamera(CameraUpdateFactory.zoomTo(14));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(EncontrarActivity.this,

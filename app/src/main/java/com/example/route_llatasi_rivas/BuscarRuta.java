@@ -60,14 +60,15 @@ public class BuscarRuta extends AppCompatActivity implements OnMapReadyCallback 
         btnencontrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(desde!=""&&hasta!=""){
+                if(desde.equals("")&&hasta.equals("")){
+                    Toast.makeText(getApplicationContext(),"Indique un punto de inicio y punto final",Toast.LENGTH_SHORT);
+                }
+                else {
                     Intent intent=new Intent(getApplicationContext(),EncontrarActivity.class);
                     intent.putExtra("desde",desde);
                     intent.putExtra("hasta",hasta);
                     startActivity(intent);
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Indique un punto de inicio y punto final",Toast.LENGTH_SHORT);
+
                 }
 
             }
@@ -79,8 +80,11 @@ public class BuscarRuta extends AppCompatActivity implements OnMapReadyCallback 
         mapa = googleMap;
         mapa.clear();
 
+        LatLng lugar = new LatLng(-18.0038755, -70.225904);
+
+        mapa.moveCamera(CameraUpdateFactory.newLatLng(lugar));
         mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mapa.moveCamera(CameraUpdateFactory.zoomTo(17));
+        mapa.moveCamera(CameraUpdateFactory.zoomTo(14));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(BuscarRuta.this,

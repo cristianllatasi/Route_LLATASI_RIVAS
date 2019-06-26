@@ -38,13 +38,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:id="@+id/txtcombi"/>
+                android:id="@+id/txtcombi"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:id="@+id/txthora"/>
+                android:id="@+id/txthorario"/>
 
 
 
